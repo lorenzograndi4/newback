@@ -5,9 +5,21 @@
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+
+  const squareSchema = new Schema({
+    visible: { type: Boolean, required: true },
+    rowNumbers: { type: Array, required: true },
+    columnNumbers: { type: Array, required: true },
+  });
+
+  const playerSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: 'users' },
+  });
+
   const game = new Schema({
     title: { type: String, required: true },
-    playerIds: [Schema.Types.ObjectId],
+    squares: [squareSchema],
+    players: [playerSchema],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });

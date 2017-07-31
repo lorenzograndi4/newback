@@ -7,8 +7,13 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return function createGame (hook) {
 
     const currentUser = hook.params.user;
+
     hook.data.title = `${currentUser.userName}'s game`;
-    hook.data.playerIds = [hook.params.user._id];
+    hook.data.userId = currentUser._id; // assign the owner of the game
+    hook.data.players = [{
+      userId: currentUser._id
+    }]; // add the owner to the players, as the first player in the game
+    
     // Hooks can either return nothing or a promise
     // that resolves with the `hook` object for asynchronous operations
     return Promise.resolve(hook);

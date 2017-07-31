@@ -1,19 +1,43 @@
+'use strict';
+
+const errors = require('feathers-errors');
+const isGameFull = require('./isGameFull');
+
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
-const errors = require('feathers-errors');
+// const errors = require('feathers-errors');
 
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return function(hook) {
-    return hook.app.service('games').get(hook.id)
+
+    if (hook.data.join === undefined) return Promise.resolve(hook); // see if hook.data has { join: boolean }
+
+    const currentUser = hook.params.user;
+
+    return hook.app.service('games').get(hook.id) // see if player is present
       .then((game) => {
-        if (hook.data.joinGame === undefined) {
-          throw new errors.Forbidden('You must be the author to change a game like that.');
+        const players = game.players;
+        const wantsToJoin = hook.data.join;
+        const joined = players.map((p) => (p.userId)).includes(currentUser._id);
+        hook.data = {};
+
+        if (isGameFull(game)) {
+          throw new errors.Unprocessable('Sorry, this game is full!');
         }
 
-        const action = hook.data.joinGame ? '$addToSet' : '$pull';
-        let data = {};
-        data[action] = { playerIds: hook.params.user._id };
-        hook.data = data;
+        if (!joined && wantsToJoin) {
+          hook.data = {
+            players: players.concat({ userId: currentUser._id})
+          };
+        }
+
+        if (joined && !wantsToJoin) {
+          hook.data = {
+            players: players.filter((p) => (p.userId !== currentUser._id))
+          };
+        }
+
+        return Promise.resolve(hook);
       });
   };
 };
