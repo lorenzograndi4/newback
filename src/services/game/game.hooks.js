@@ -2,9 +2,20 @@ const { authenticate } = require('feathers-authentication').hooks;
 
 const joinGame = require('../../hooks/join-game');
 
-const populatePlayers = require('../../hooks/populate-players');
+const isGameFull = require('../../hooks/isGameFull');
+
+const { populate } = require('feathers-hooks-common');
 
 const createGame = require('../../hooks/create-game');
+
+const ownerSchema = {
+  include: {
+    service: 'users',
+    nameAs: 'owner',
+    parentField: 'userId',
+    childField: '_id',
+  }
+};
 
 module.exports = {
   before: {
@@ -18,7 +29,7 @@ module.exports = {
   },
 
   after: {
-    all: [populatePlayers()],
+    all: [populate({ schema: ownerSchema }), isGameFull()],
     find: [],
     get: [],
     create: [],
