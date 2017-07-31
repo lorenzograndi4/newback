@@ -1,0 +1,34 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "authentication": {
+    "secret": "08a726ad7e7c80f5adb89b6b6e3c986544019a5ce3fd4b9e0cb9a8df3f19074df60c02154d7cc0dad01749c0962ec4ece4db8337351622396e8c1ef1c7da760566db14b15d153bb2189c859ea5f579249bed2f25c9e2411e5d32955f520f3c710a82de66d03ff66bdbcd62e9ff33e6cb3e6c88166baad9b23852a2501bf387c87741fb951d6608d915156517b2885e1c11b5356f0897ce11c960d9795218225894e8a428213117f6a6b7e77f2ddbbe63575391e068b739fb6f0aa16c8b4cab16828fe0106bc4816a51e44818ffc3dbbd62d8103941e4e1d8549635dde6dc4f2127205c7539876247f46d3792199c90c4ce0a8ae5a16d679aa775b941239d367f",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "type": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    }
+  },
+  "mongodb": "mongodb://localhost:27017/nanograms"
+}
