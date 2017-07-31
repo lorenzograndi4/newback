@@ -2,7 +2,9 @@ const { authenticate } = require('feathers-authentication').hooks;
 
 const joinGame = require('../../hooks/join-game');
 
-const isGameFull = require('../../hooks/isGameFull');
+const isGameFull = require('../../hooks/is-game-full');
+
+const checkWinner = require('../../hooks/check-winner');
 
 const { populate } = require('feathers-hooks-common');
 
@@ -23,8 +25,8 @@ module.exports = {
     find: [],
     get: [],
     create: [createGame()],
-    update: [joinGame()],
-    patch: [joinGame()],
+    update: [joinGame(), checkWinner()],
+    patch: [joinGame(), checkWinner()],
     remove: []
   },
 
