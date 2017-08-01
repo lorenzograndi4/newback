@@ -6,14 +6,13 @@ const auth = require('feathers-authentication-client');
 
 const user = {
   userName: 'Lorenzo',
-  email: 'lorenzo@lorenzo.com',
+  email: 'lorenzonew@lorenzo.com',
   password: 'qwerty1'
 };
 
 const games = [
   {
     title: 'Test game',
-    players: []
   }
 ];
 

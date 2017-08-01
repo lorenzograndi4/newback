@@ -27,8 +27,7 @@
     "start": "node src/",
     "seed": "node src/seeds.js",
     "dev": "nodemon --inspect src/",
-    "mocha": "mocha test/ --recursive",
-    "seed": "node src/seeds.js"
+    "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
