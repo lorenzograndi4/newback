@@ -5,7 +5,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return function populatePlayers (hook) {
     hook.populate('players', {
       service: 'users',
-      field: 'playerIds'
+      field: 'playerIds' // Is this correct? Check user model
     });
 
     // Hooks can either return nothing or a promise
