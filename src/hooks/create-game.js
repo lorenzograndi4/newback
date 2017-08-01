@@ -2,8 +2,7 @@
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
-
-
+  
   return function createGame (hook) {
 
     const currentUser = hook.params.user;
@@ -13,7 +12,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     hook.data.players = [{
       userId: currentUser._id
     }]; // add the owner to the players, as the first player in the game
-    
+
     // Hooks can either return nothing or a promise
     // that resolves with the `hook` object for asynchronous operations
     return Promise.resolve(hook);

@@ -1,16 +1,24 @@
 'use strict';
 
 const errors = require('feathers-errors');
-const isGameFull = require('./isGameFull');
+// const isGameFull = require('./is-game-full');
 
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 // const errors = require('feathers-errors');
 
+function isGameFull(game) {
+  const { players } = game;
+  return players.length >= 3;
+}
+
+
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return function(hook) {
 
-    if (hook.data.join === undefined) return Promise.resolve(hook); // see if hook.data has { join: boolean }
+    // see if hook.data has { join: boolean }
+    // only let them through if they are trying to join, otherwise return promise
+    if (hook.data.join === undefined) return Promise.resolve(hook);
 
     const currentUser = hook.params.user;
 
