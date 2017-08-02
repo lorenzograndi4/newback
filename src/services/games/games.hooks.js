@@ -1,5 +1,6 @@
-// const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('feathers-authentication').hooks;
 const { populate } = require('feathers-hooks-common');
+const createGame = require('../../hooks/create-game');
 
 const ownerSchema = {
   include: {
@@ -15,20 +16,20 @@ module.exports = {
     all: [], // authenticate('jwt')
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
+    create: [authenticate('jwt'), createGame()],
+    update: [authenticate('jwt')],
+    patch: [authenticate('jwt')],
+    remove: [authenticate('jwt')]
   },
 
   after: {
-    all: [populate({ schema: ownerSchema })],
+    all: [],
     find: [],
     get: [],
-    create: [],
+    create: [populate({ schema: ownerSchema })],
     update: [],
     patch: [],
-    remove: []
+    remove: [populate({ schema: ownerSchema })]
   },
 
   error: {

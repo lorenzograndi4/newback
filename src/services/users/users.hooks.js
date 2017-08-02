@@ -15,7 +15,7 @@ module.exports = {
   before: {
     all: [],
     find: [],
-    get: [ ...restrict ],
+    get: [], // ...restrict
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
@@ -28,11 +28,11 @@ module.exports = {
         hook => hook.params.provider,
         commonHooks.discard('password')
       ),
-      commonHooks.unless(
-        hook => (hook.params.user &&
-          hook.params.user._id === hook.data._id), // don't show emails to other users
-        commonHooks.discard('email')
-      )
+      // commonHooks.unless(
+      //   hook => (hook.params.user &&
+      //     hook.params.user._id === hook.id), // don't show emails to other users
+      //   commonHooks.discard('email')
+      // )
     ],
     find: [],
     get: [],

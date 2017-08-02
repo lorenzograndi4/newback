@@ -5,14 +5,15 @@ const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication-client');
 
 const user = {
-  userName: 'Lorenzo',
-  email: 'lorenzonew@lorenzo.com',
+  name: 'Lorenzo',
+  email: 'test@lorenzo.com',
   password: 'qwerty1'
 };
 
 const games = [
   {
     title: 'Test game',
+    player1: user
   }
 ];
 
