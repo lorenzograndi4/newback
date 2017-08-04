@@ -9,7 +9,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
 
     hook.data.title = `${currentUser.name}'s game`;
     hook.data.ownerId = currentUser._id; // assign the owner of the game
-    hook.data.owner = [{
+    hook.data.players = [{
       userId: currentUser._id
     }]; // add the owner to the players, as the first player in the game
     // Hooks can either return nothing or a promise

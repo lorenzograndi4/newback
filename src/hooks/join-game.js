@@ -9,7 +9,7 @@ const errors = require('feathers-errors');
 
 function isGameFull(game) {
   const { players } = game;
-  return players.length >= 3;
+  return players.length >= 2;
 }
 
 
@@ -22,12 +22,18 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
 
     const currentUser = hook.params.user;
 
-    return hook.app.service('games').get(hook.id) // see if player is present
+    return  hook.app.service('games').get(hook.id) // see if player is present
       .then((game) => {
         const players = game.players;
         const wantsToJoin = hook.data.join;
         const joined = players.map((p) => (p.userId)).includes(currentUser._id);
         hook.data = {};
+
+        // version with no checks
+        // hook.data.players = game.players.concat({ userId: currentUser._id });
+        // hook.data = {
+        //   players: players.concat({ userId: currentUser._id})
+        // };
 
         if (isGameFull(game)) {
           throw new errors.Unprocessable('Sorry, this game is full!');
@@ -39,11 +45,12 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
           };
         }
 
-        if (joined && !wantsToJoin) {
-          hook.data = {
-            players: players.filter((p) => (p.userId !== currentUser._id))
-          };
-        }
+        // not using this anyway
+        // if (joined && !wantsToJoin) {
+        //   hook.data = {
+        //     players: players.filter((p) => (p.userId !== currentUser._id))
+        //   };
+        // }
 
         return Promise.resolve(hook);
       });
