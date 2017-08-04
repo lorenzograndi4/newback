@@ -1,4 +1,5 @@
 {
-  "host": "nanograms-app.feathersjs.com",
-  "port": "PORT"
+  "host": "newback.herokuapp.com",
+  "port": "PORT",
+  "mongodb": "MONGODB_URI"
 }
