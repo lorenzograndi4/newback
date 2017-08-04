@@ -12,7 +12,6 @@ function isGameFull(game) {
   return players.length >= 2;
 }
 
-
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return function(hook) {
 

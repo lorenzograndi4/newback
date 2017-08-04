@@ -18,7 +18,7 @@
       "header": {
         "type": "access"
       },
-      "audience": "https://newback.herokuapp.com",
+      "audience": "https://newbackcdssrapi.herokuapp.com",
       "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",

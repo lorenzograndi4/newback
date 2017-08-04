@@ -1,5 +1,5 @@
 {
-  "host": "newback.herokuapp.com",
+  "host": "newbackcdssrapi.herokuapp.com",
   "port": "PORT",
   "mongodb": "MONGODB_URI"
 }
